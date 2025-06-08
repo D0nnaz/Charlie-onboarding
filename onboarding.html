@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Charlie Onboarding</title>
+  <link rel="stylesheet" href="onboarding.css">
+</head>
+<body>
+  <!-- Stap 1: Intro video -->
+  <div id="step-video" class="onboarding-step">
+    <video id="onboarding-video" width="100%" controls autoplay>
+      <source src="assets/video.mp4" type="video/mp4">
+      Je browser ondersteunt geen video.
+    </video>
+  </div>
+
+  <!-- Stap 2: Personalisatie welkom -->
+  <div id="step-welcome" class="onboarding-step hidden">
+    <div class="charlie-avatar-wrapper">
+      <img src="assets/happy.png" class="charlie-avatar mood-happy mood-active">
+    </div>
+    <h2>Welkom bij Charlie!</h2>
+    <p>Personaliseer je ervaring. Ik leer graag van je! Wil je het nu instellen of later?</p>
+    <div class="onboarding-buttons">
+      <button id="btn-later">Later</button>
+      <button id="btn-personaliseer">Personaliseer me</button>
+    </div>
+  </div>
+
+  <!-- Stap 3: Tone of voice -->
+  <div id="step-tone" class="onboarding-step hidden">
+    <h2>Kies je tone of voice</h2>
+    <p>Welke stijl past het beste bij jou?</p>
+    <div class="tone-options">
+    </div>
+    <button id="btn-tone-next">Volgende</button>
+  </div>
+
+  <!-- Stap 4: Gebruik van AI -->
+  <div id="step-usage" class="onboarding-step hidden">
+    <h2>Waar gebruik je AI voornamelijk voor?</h2>
+    <div class="usage-options">
+
+    </div>
+    <button id="btn-usage-next">Volgende</button>
+  </div>
+
+  <!-- Stap 5: Ervaring met AI -->
+  <div id="step-experience" class="onboarding-step hidden">
+    <h2>Hoeveel ervaring heb je met AI?</h2>
+    <div class="experience-options">
+    </div>
+    <button id="btn-experience-next">Volgende</button>
+  </div>
+
+  <!-- Stap 6: Kennis van AI-regels -->
+  <div id="step-knowledge" class="onboarding-step hidden">
+    <h2>Weet jij wat mag met AI?</h2>
+    <div class="knowledge-options">
+
+    </div>
+    <button id="btn-knowledge-next">Volgende</button>
+  </div>
+
+  <!-- Stap 7: Hoe kan ik jou het beste helpen? -->
+  <div id="step-help" class="onboarding-step hidden">
+    <h2>Hoe kan ik jou het beste helpen?</h2>
+    <div class="help-options">
+
+    </div>
+    <button id="btn-help-next">Volgende</button>
+  </div>
+
+  <!-- Stap 8: Klaar -->
+  <div id="step-done" class="onboarding-step hidden">
+    <div class="charlie-avatar-wrapper">
+      <img src="assets/happy.png" class="charlie-avatar mood-happy mood-active">
+    </div>
+    <h2>Je bent er klaar voor!</h2>
+    <p>Ik help je scherp en slim te blijven. Veel succes!</p>
+    <a href="https://charlie-dashboard.vercel.app/" class="onboarding-go" target="_blank">Let's go!</a>
+  </div>
+
+  <script src="onboarding.js"></script>
+</body>
+</html> 
