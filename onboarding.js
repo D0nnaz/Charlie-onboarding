@@ -147,7 +147,19 @@ document.getElementById('btn-usage-next').onclick = () => {
   if (selectedUsage.includes('Anders') && usageOtherInput) {
     valid = valid && usageOtherInput.value.trim().length > 0;
   }
-  if (valid) showStep(4);
+  
+  // Reset de selectie als de validatie niet slaagt
+  if (!valid) {
+    selectedUsage = []; // Reset de selectie
+    usageContainer.querySelectorAll('.usage-option').forEach(el => {
+      el.classList.remove('selected'); // Verwijder de geselecteerde klasse
+    });
+    if (usageOtherInput) {
+      usageOtherInput.classList.add('hidden'); // Verberg de input voor 'Anders'
+    }
+  } else {
+    showStep(4); // Ga naar de volgende stap als de validatie slaagt
+  }
 };
 
 // Stap 5: Ervaring met AI (single select)
