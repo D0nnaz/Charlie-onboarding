@@ -11,11 +11,33 @@ const steps = [
 ];
 let currentStep = 0;
 
+function updateProgressBar(idx) {
+  // 8 stappen totaal, idx 0-7
+  const percent = Math.round((idx) / (steps.length - 1) * 100);
+  // Progress bar id per stap
+  const barIds = [
+    null,
+    'progress-welcome',
+    'progress-tone',
+    'progress-usage',
+    'progress-experience',
+    'progress-knowledge',
+    'progress-help',
+    'progress-done'
+  ];
+  barIds.forEach((id, i) => {
+    if (!id) return;
+    const bar = document.getElementById(id);
+    if (bar) bar.style.width = (i === idx ? percent : 0) + '%';
+  });
+}
+
 function showStep(idx) {
   steps.forEach((id, i) => {
     document.getElementById(id).classList.toggle('hidden', i !== idx);
   });
   currentStep = idx;
+  updateProgressBar(idx);
 }
 
 // Stap 1: Video
@@ -39,12 +61,12 @@ const btnPersonaliseer = document.getElementById('btn-personaliseer');
 if (btnLater) btnLater.onclick = () => showStep(7); // direct naar klaar
 if (btnPersonaliseer) btnPersonaliseer.onclick = () => showStep(2);
 
-// Stap 3: Tone of voice
+// Stap 3: Tone of voice (single select)
 const toneOptions = [
-  { key: 'vriendelijk', label: 'Vriendelijk', voorbeeld: 'Hoi! Hoe kan ik je vandaag helpen?' },
-  { key: 'direct', label: 'Direct', voorbeeld: 'Wat wil je weten? Ik help je snel.' },
-  { key: 'formeel', label: 'Formeel', voorbeeld: 'Goedendag, waarmee kan ik u van dienst zijn?' },
-  { key: 'sarkastisch', label: 'Sarkastisch', voorbeeld: 'Oh, weer een vraag? Kom maar op dan...' }
+  { key: 'vriendelijk', label: 'Vriendelijk', voorbeeld: 'Hé daar! Ik merkte dat je misschien deze data wilt anonimiseren. Wil je wat tips?' },
+  { key: 'direct', label: 'Direct', voorbeeld: 'Deze data moet geanonimiseerd worden. Wil je hulp?' },
+  { key: 'formeel', label: 'Formeel', voorbeeld: 'Ik wil graag onder uw aandacht brengen dat deze data mogelijk anonimisering vereist. Wilt u begeleiding bij deze kwestie?' },
+  { key: 'sarcastisch', label: 'Sarcastisch', voorbeeld: 'Oh kijk, weer een privacy-zorg! Misschien moeten we, ik weet het niet, deze data anonimiseren? Gewoon maar een idee hoor.' }
 ];
 const toneContainer = document.querySelector('.tone-options');
 let selectedTone = null;
@@ -54,7 +76,7 @@ if (toneContainer) {
     div.className = 'tone-block';
     div.innerHTML = `<strong>${opt.label}</strong><span>${opt.voorbeeld}</span>`;
     div.onclick = () => {
-      document.querySelectorAll('.tone-block').forEach(b => b.classList.remove('selected'));
+      toneContainer.querySelectorAll('.tone-block').forEach(b => b.classList.remove('selected'));
       div.classList.add('selected');
       selectedTone = opt.key;
     };
@@ -65,7 +87,7 @@ document.getElementById('btn-tone-next').onclick = () => {
   if (selectedTone) showStep(3);
 };
 
-// Stap 4: Gebruik van AI
+// Stap 4: Gebruik van AI (multi select)
 const usageOptions = [
   'Samenvattingen maken',
   'E-mails schrijven',
@@ -81,7 +103,7 @@ let usageOtherInput = null;
 if (usageContainer) {
   usageOptions.forEach(opt => {
     const div = document.createElement('div');
-    div.className = 'usage-option';
+    div.className = 'usage-option help-option'; // multi-select style
     div.textContent = opt;
     if (opt === 'Anders') {
       // Voeg input toe voor 'Anders'
@@ -93,7 +115,6 @@ if (usageContainer) {
       div.appendChild(input);
     }
     div.onclick = (e) => {
-      // voorkom dat input focus click de div togglet
       if (e.target.tagName === 'INPUT') return;
       if (opt === 'Selecteer allemaal') {
         selectedUsage = usageOptions.filter(o => o !== 'Selecteer allemaal');
@@ -101,10 +122,17 @@ if (usageContainer) {
           if (usageOptions[i] !== 'Selecteer allemaal') el.classList.add('selected');
         });
         if (usageOtherInput) usageOtherInput.classList.remove('hidden');
+        
+        selectedUsage = selectedUsage.filter(o => o !== 'Anders');
+        const andersDiv = Array.from(usageContainer.children).find(child => child.textContent === 'Anders');
+        if (andersDiv) andersDiv.classList.remove('selected');
       } else {
         div.classList.toggle('selected');
-        if (div.classList.contains('selected')) selectedUsage.push(opt);
-        else selectedUsage = selectedUsage.filter(o => o !== opt);
+        if (div.classList.contains('selected')) {
+          selectedUsage.push(opt);
+        } else {
+          selectedUsage = selectedUsage.filter(o => o !== opt);
+        }
         if (opt === 'Anders' && usageOtherInput) {
           usageOtherInput.classList.toggle('hidden', !div.classList.contains('selected'));
           if (div.classList.contains('selected')) usageOtherInput.focus();
@@ -122,7 +150,7 @@ document.getElementById('btn-usage-next').onclick = () => {
   if (valid) showStep(4);
 };
 
-// Stap 5: Ervaring met AI
+// Stap 5: Ervaring met AI (single select)
 const experienceOptions = [
   'Is het iets met robots?',
   'Ik doe maar wat en hoop dat het goed gaat',
@@ -171,7 +199,7 @@ document.getElementById('btn-experience-next').onclick = () => {
   if (valid) showStep(5);
 };
 
-// Stap 6: Kennis van AI-regels
+// Stap 6: Kennis van AI-regels (single select)
 const knowledgeOptions = [
   'Geen idee, wat zijn de regels eigenlijk?',
   'Ik weet niet precies wat de regels zijn, maar ik hoop dat je er iets mee mag',
@@ -197,7 +225,7 @@ document.getElementById('btn-knowledge-next').onclick = () => {
   if (selectedKnowledge) showStep(6);
 };
 
-// Stap 7: Hoe kan ik jou het beste helpen?
+// Stap 7: Hoe kan ik jou het beste helpen? (multi select)
 const helpOptions = [
   'Tips voor veilig gebruik',
   'Voorbeelden van prompts',
