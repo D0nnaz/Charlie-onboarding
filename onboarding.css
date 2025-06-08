@@ -41,6 +41,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin-top: 0;
 }
 
 #step-video.onboarding-step {
@@ -89,7 +90,7 @@ body {
 
 .onboarding-step p {
   font-size: 1rem;
-  margin: 0 0 1em 0;
+  margin: -1.5em 0 1em 0;
   text-align: center;
 }
 
@@ -116,6 +117,12 @@ body {
 }
 .onboarding-step button:hover, .onboarding-go:hover {
   background: var(--charlie-primary-hover);
+}
+
+#btn-later{
+  background: var(--charlie-accent-bg);
+  color: var(--charlie-text);
+  border: 1px solid var(--charlie-border);
 }
 
 .tone-options, .usage-options, .experience-options, .knowledge-options, .help-options {
@@ -179,7 +186,8 @@ body {
   width: 100%;
 }
 .charlie-avatar {
-  width: 90px;
+  width: 6em;
+  border-radius: 50%;
   height: auto;
   margin-bottom: 0.5em;
 }
@@ -187,4 +195,177 @@ body {
 .onboarding-go {
   width: 100%;
   margin-top: 1.5em;
+}
+
+.onboarding-step-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.2em;
+}
+.onboarding-step-header .charlie-avatar {
+  width: 6em;
+  height: auto;
+  margin: 0 0 0.5em 0;
+  position: static;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.onboarding-step-header .onboarding-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--charlie-accent-bg);
+  border-radius: 8px;
+  margin-bottom: 0.2em;
+  margin-top: 0;
+  position: static;
+}
+.onboarding-step-header .onboarding-progress-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--charlie-primary) 0%, var(--charlie-primary-hover) 100%);
+  width: 0%;
+  border-radius: 8px;
+  transition: width 0.4s cubic-bezier(.4,1.4,.6,1);
+}
+
+/* Verwijder globale avatar/progress bar styling */
+.onboarding-charlie-top, .onboarding-progress-bar:not(.onboarding-step-header .onboarding-progress-bar) {
+  display: none !important;
+}
+
+.onboarding-step {
+  margin-top: 0;
+}
+
+.onboarding-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--charlie-accent-bg);
+  border-radius: 8px;
+  margin-bottom: 0.7em;
+  margin-top: 0;
+  position: static;
+}
+.onboarding-progress-bar-inner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--charlie-primary) 0%, var(--charlie-primary-hover) 100%);
+  width: 0%;
+  border-radius: 8px;
+  transition: width 0.4s cubic-bezier(.4,1.4,.6,1);
+}
+
+.charlie-avatar {
+  width: 6em;
+  height: auto;
+  margin: 0 0 0.5em 0;
+  position: static;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* Single select (radio-style) */
+.single-select .tone-block,
+.single-select .experience-option,
+.single-select .knowledge-option {
+  position: relative;
+  padding-left: 3.2em;
+  cursor: pointer;
+  border: 1.5px solid var(--charlie-border);
+  border-radius: var(--charlie-radius);
+  background: var(--charlie-accent-bg);
+  margin-bottom: 0.5em;
+  transition: border 0.2s, background 0.2s;
+}
+.single-select .tone-block:hover,
+.single-select .experience-option:hover,
+.single-select .knowledge-option:hover {
+  border-color: var(--charlie-primary-hover);
+  background: #f3f3f3;
+}
+.single-select .selected {
+  border: 2px solid var(--charlie-primary);
+  background: #e6e6e6;
+}
+.single-select .tone-block::before,
+.single-select .experience-option::before,
+.single-select .knowledge-option::before {
+  content: '';
+  position: absolute;
+  left: 0.9em;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  border: 2px solid var(--charlie-primary);
+  background: #fff;
+  box-sizing: border-box;
+}
+.single-select .selected::before {
+  background: var(--charlie-primary);
+  box-shadow: 0 0 0 3px #e6e6e6;
+}
+
+/* Multi select (checkbox-style) */
+.multi-select .usage-option,
+.multi-select .help-option {
+  position: relative;
+  padding-left: 3.2em;
+  cursor: pointer;
+  border: 1.5px solid var(--charlie-border);
+  border-radius: var(--charlie-radius);
+  background: var(--charlie-accent-bg);
+  margin-bottom: 0.5em;
+  transition: border 0.2s, background 0.2s;
+}
+.multi-select .usage-option:hover,
+.multi-select .help-option:hover {
+  border-color: var(--charlie-primary-hover);
+  background: #f3f3f3;
+}
+.multi-select .selected {
+  border: 2px solid var(--charlie-primary);
+  background: #e6e6e6;
+}
+.multi-select .usage-option::before,
+.multi-select .help-option::before {
+  content: '';
+  position: absolute;
+  left: 0.9em;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 5px;
+  border: 2px solid var(--charlie-primary);
+  background: #fff;
+  box-sizing: border-box;
+}
+.multi-select .selected::before {
+  background: var(--charlie-primary);
+  border-color: var(--charlie-primary);
+}
+.multi-select .selected::after {
+  content: '\2713';
+  position: absolute;
+  left: 1.18em;
+  top: 50%;
+  transform: translateY(-60%);
+  color: #fff;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.usage-other-input, .experience-other-input {
+  margin-top: 0.7em;
+  width: 100%;
+  padding: 0.6em 1em;
+  border-radius: var(--charlie-radius);
+  border: 1px solid var(--charlie-border);
+  font-size: 1em;
+  background: #fff;
+  color: var(--charlie-text);
+  box-sizing: border-box;
+}
+.usage-other-input.hidden, .experience-other-input.hidden {
+  display: none;
 } 
