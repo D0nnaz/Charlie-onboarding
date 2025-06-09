@@ -14,24 +14,10 @@ let currentStep = 0;
 
 function updateProgressBar(idx) {
   const percent = Math.round((idx) / (steps.length - 1) * 100);
-  const progressBarInner = document.getElementById('progress-step');
-  if (progressBarInner) {
-    progressBarInner.style.width = percent + '%';
-  }
-  const barIds = [
-    null,
-    'progress-welcome',
-    'progress-tone',
-    'progress-usage',
-    'progress-experience',
-    'progress-knowledge',
-    'progress-help',
-    'progress-done'
-  ];
-  barIds.forEach((id, i) => {
-    if (!id) return;
-    const bar = document.getElementById(id);
-    if (bar) bar.style.width = (i === idx ? percent : 0) + '%';
+  const progressBars = document.querySelectorAll('.onboarding-progress-bar-inner');
+
+  progressBars.forEach(bar => {
+    bar.style.width = percent + '%';
   });
 }
 
