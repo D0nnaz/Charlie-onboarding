@@ -90,7 +90,8 @@ body {
   width: 100vw !important;
   height: 100vh !important;
   max-width: 100vw;
-  max-height: 100vh;
+  min-height: 102vh;
+  max-height: 102vh;
   object-fit: cover;
   border-radius: 0;
   background: black;
