@@ -58,6 +58,34 @@ body {
   justify-content: center;
 }
 
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+
+.video-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-size: 3em;
+  padding: 0.5em 0.7em;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 2;
+}
+
+.video-play-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+
 #onboarding-video {
   width: 100vw !important;
   height: 100vh !important;
@@ -81,6 +109,19 @@ body {
   display: none !important;
 }
 
+.name-input {
+  width: 100%;
+  padding: 0.8em 1em;
+  border-radius: var(--charlie-radius);
+  border: 1px solid var(--charlie-border);
+  font-size: 1em;
+  background: #fff;
+  color: var(--charlie-text);
+  box-sizing: border-box;
+  margin-top: -0.5em;
+}
+
+
 .onboarding-step h2 {
   font-size: 1.3rem;
   font-weight: 700;
@@ -94,7 +135,7 @@ body {
   text-align: center;
 }
 
-.onboarding-buttons {
+.onboarding-buttons, .buttons-container {
   display: flex;
   gap: 1em;
   width: 100%;
@@ -113,13 +154,14 @@ body {
   transition: background 0.2s;
   text-align: center;
   text-decoration: none;
-  margin-top: 0.5em;
+  margin-top: 0.5em !important;
+  display: inline-block;
 }
 .onboarding-step button:hover, .onboarding-go:hover {
   background: var(--charlie-primary-hover);
 }
 
-#btn-later{
+#btn-later, .buttons-container button:first-child{
   background: var(--charlie-accent-bg);
   color: var(--charlie-text);
   border: 1px solid var(--charlie-border);
@@ -192,11 +234,6 @@ body {
   margin-bottom: 0.5em;
 }
 
-.onboarding-go {
-  width: 100%;
-  margin-top: 1.5em;
-}
-
 .onboarding-step-header {
   width: 100%;
   display: flex;
@@ -228,8 +265,8 @@ body {
   transition: width 0.4s cubic-bezier(.4,1.4,.6,1);
 }
 
-/* Verwijder globale avatar/progress bar styling */
-.onboarding-charlie-top, .onboarding-progress-bar:not(.onboarding-step-header .onboarding-progress-bar) {
+.onboarding-charlie-top, 
+.onboarding-progress-bar#progress-step, #step-done .onboarding-progress-bar {
   display: none !important;
 }
 
