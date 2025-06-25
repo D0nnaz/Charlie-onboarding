@@ -27,7 +27,6 @@ function showStep(idx) {
     const wasVisible = !el.classList.contains('hidden');
     el.classList.toggle('hidden', i !== idx);
 
-    // Skip the video step
     if (id === 'step-video' && i !== idx) {
       video.pause();
       video.currentTime = 0;
@@ -129,7 +128,7 @@ if (btnNameNext) {
 // Stap 2: Welkom
 const btnLater = document.getElementById('btn-later');
 const btnPersonaliseer = document.getElementById('btn-personaliseer');
-if (btnLater) btnLater.onclick = () => showStep(7); // direct naar klaar
+if (btnLater) btnLater.onclick = () => showStep(8); 
 if (btnPersonaliseer) btnPersonaliseer.onclick = () => showStep(3);
 
 // Stap 3: Tone of voice (single select)
