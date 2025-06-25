@@ -27,22 +27,23 @@ function showStep(idx) {
     const wasVisible = !el.classList.contains('hidden');
     el.classList.toggle('hidden', i !== idx);
 
-    if (id === 'step-video' && wasVisible && i !== idx) {
+    if (id === 'step-video' && i !== idx) {
       video.pause();
       video.currentTime = 0;
       playBtn.style.opacity = '1';
       hasStarted = false;
     }
-    if (idx === 2) {
-  const name = localStorage.getItem('charlieUserName') || '';
-  const nameDisplay = document.getElementById('user-name-display');
-  if (nameDisplay) nameDisplay.textContent = name;
-}
   });
+
+  if (steps[idx] === 'step-video') {
+    showStep(currentStep + 1); 
+    return;
+  }
 
   currentStep = idx;
   updateProgressBar(idx);
 }
+
 
 document.querySelectorAll('.btn-prev').forEach(btn => {
   btn.addEventListener('click', () => {
