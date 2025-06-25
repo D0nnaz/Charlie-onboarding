@@ -27,6 +27,7 @@ function showStep(idx) {
     const wasVisible = !el.classList.contains('hidden');
     el.classList.toggle('hidden', i !== idx);
 
+    // Skip the video step
     if (id === 'step-video' && i !== idx) {
       video.pause();
       video.currentTime = 0;
@@ -36,8 +37,14 @@ function showStep(idx) {
   });
 
   if (steps[idx] === 'step-video') {
-    showStep(currentStep + 1); 
+    showStep(currentStep + 1);  
     return;
+  }
+
+  if (steps[idx] === 'step-name') {
+    const name = localStorage.getItem('charlieUserName') || '';
+    const nameDisplay = document.getElementById('user-name-display');
+    if (nameDisplay) nameDisplay.textContent = name;
   }
 
   currentStep = idx;
